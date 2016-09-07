@@ -26,7 +26,6 @@ MaxElements (A, n)
 - Double
 -	Boolean
 -	Char
--	Does NOT have unsigned ints or chars
 ---
 **Default values for primitive types**
 - 	Byte : 0
