@@ -39,9 +39,10 @@ Return n;
 - 	Long : 0
 - 	Float : 0
 - 	Double : 0
-- 	Char : “\u0000”
+- 	Char : \u0000
 - 	String : null
 - 	Boolean : false
+
 -	Static Code, we reference it by the class name and then the name of the method
 -	Instance code, we reference by a state and then the name of the method
 
