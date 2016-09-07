@@ -32,6 +32,7 @@ Return –n;
 }
 Return n;
 ```
+---
 **Default values for primitive types**
 - 	Byte : 0
 - 	Short : 0
