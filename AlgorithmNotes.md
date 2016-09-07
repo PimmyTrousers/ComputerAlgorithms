@@ -26,7 +26,9 @@ MaxElements (A, n)
 - Double
 -	Boolean
 -	Char
+
 ---
+
 **Default values for primitive types**
 - 	Byte : 0
 - 	Short : 0
@@ -37,7 +39,9 @@ MaxElements (A, n)
 - 	Char : \u0000
 - 	String : null
 - 	Boolean : false
+
 ---
+
 We reference static code by the class name and then the name of the method. We reference Instance code with  a state and then the name of the method.
 
 # 9/1/16
