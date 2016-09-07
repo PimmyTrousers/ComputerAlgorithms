@@ -27,14 +27,7 @@ MaxElements (A, n)
 -	Boolean
 -	Char
 -	Does NOT have unsigned ints or chars
-
-```Int abs (int n) {
-If ( n < 0){
-Return –n;
-}
-Return n;
-```
-
+---
 **Default values for primitive types**
 - 	Byte : 0
 - 	Short : 0
@@ -45,9 +38,8 @@ Return n;
 - 	Char : \u0000
 - 	String : null
 - 	Boolean : false
-
--	Static Code, we reference it by the class name and then the name of the method
--	Instance code, we reference by a state and then the name of the method
+---
+We reference static code by the class name and then the name of the method. We reference Instance code with  a state and then the name of the method.
 
 # 9/1/16
 ## Continuing Java
