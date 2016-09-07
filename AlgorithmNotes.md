@@ -15,7 +15,7 @@ MaxElements (A, n)
 	     CurrentMax  A[i]
        Return CurrentMax
 ```
----
+
 **Primitive types is Java:**
 -	Byte
 -	Short
@@ -32,7 +32,7 @@ Return –n;
 }
 Return n;
 ```
----
+
 **Default values for primitive types**
 - 	Byte : 0
 - 	Short : 0
