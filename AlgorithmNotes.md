@@ -7,6 +7,7 @@ MaxElements (A, n)
 	  size of array n
 	Output:
 	  Maximum element in A
+
 ```
 	CurrentMax  A[0]
 	For(I =1; I < n-1; I++)
@@ -26,6 +27,7 @@ MaxElements (A, n)
 -	Boolean
 -	Char
 -	Does NOT have unsigned ints or chars
+
 ```Int abs (int n) {
 If ( n < 0){
 Return –n;
