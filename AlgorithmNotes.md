@@ -2,19 +2,19 @@
 
 Example:
 MaxElements (A, n)
-	Input:
-	  array of integers A
-	  size of array n
-	Output:
-	  Maximum element in A
+- Input:
+	- array of integers A
+	- size of array n
+- Output:
+	- Maximum element in A
 
 ```
 	CurrentMax  A[0]
-	For(I =1; I < n-1; I++)
-	 Do:
-	   If(A[i] > CurrentMax) then:
+	for(i = 1; i < n-1; i++)
+	 do:
+	   if(A[i] > CurrentMax) then:
 	     CurrentMax  A[i]
-       Return CurrentMax
+       return CurrentMax
 ```
 
 **Primitive types is Java:**
@@ -254,6 +254,7 @@ Java provides two types of implementation inheritance:
   -One can take unrelated classes and define a relationship.
   -For example if we have `animals` and `spaceships`. And we want to say they both require fuel, we can define a method `consume` which will be an `interface` in Java.
   -We use the `implements` keyword to sub type from a different class.
+
 ```
   Public interface Eater(){
     consume();
@@ -267,4 +268,100 @@ Java provides two types of implementation inheritance:
 - String toString(); - Prints out JavaEncoded string for the name if the datatype provide is not string.
 - int hashCode(); - returns an integer, used for hashing
 
-#9/7/16
+---
+
+#9/7/16:
+
+Subclassing is casting from a parent class
+All classes inherit from the object class
+Subtyping sets up a relationship between 2 objects
+Intefaces are used for objects to inheret those functions and they are automatically part of the interface since they have the matching functions
+
+```
+interface summable {
+	double sum();
+}
+```
+for example, `vector implements summable`
+
+if we have an object called studentGrades, it can implement summable `studentGrades implements summable`
+
+```
+class1: IntegerVector
+class2: DoubleVector
+```
+
+both of these classes will implement the interface summable
+
+The four key methods that everyone inherits from objects:
+- getClass();
+- toString();
+- equals();
+- hashCode();
+
+*Equals asks if they point to the same object, if they have the same value but are not the same object then they will not match*
+
+`hashCode();` will return an integer representation of that object AKA a fingerprint
+
+```
+Date d1 = new Date(2,4,1900);
+Date d2 = new Date(4,11,2013);
+Date d3 = new Date(2,4,1900);
+	if(d1==d2){// this will be false
+		 print("EQUAL");
+	 }
+	if(d1==d3){// this will be false
+		print("EQUAL");
+	}
+	if(d1.equals(d3)){// this will be false
+		print("EQUALS");
+	}
+	d3 = d1;
+	if(d1.equals(d3)){// this will be true
+		print("EQUALS");
+	}
+```
+
+The equals method by default is the same as the double =='s.
+The double equals with check if they are equal by reference AKA if they are pointing to the same memory location
+
+But what if we want to check equality by reference?
+
+`Override` is used to designate that you are taking the default implementation, instead of executing that run this code instead.
+
+- if you pass `x.equals(x)` then itt must be true for all cases
+- if `x.equals(y)` then `y.equals(x)` must be true
+- if `x.equals(y)` and `x.equals(z)` then `z.equals(y)`
+
+If you override equals incorrectly bad shit will happen. We need to define what will happen if the user passes null to the overridden function.
+1. Null constraint, says that it should return false if null is passed
+2. The overridden function must be consistent
+
+An example below shows how to override a method
+
+```
+@Override
+public boolean equals(Object obj) {
+	if (this == obj) return true;
+	if (obj == null) return false;
+	if (obj instanceof Cat) {
+		Cat that = (Cat)obj;
+		return (this._meows == that._meows && super.equals(that));
+	}
+	return false;
+}
+```
+instead of using the `instanceof` method which breaks our code we can use the `getClass()` method to fix this
+
+```
+	if this.getClass().equals(obj.getClass()){
+		return false;
+	}
+```
+
+```
+Cat cat = new Cat("tinycat");
+Animal animal = new Animal("tinycat");
+system.out.println(cat.equals(animal)); // should print false but prints true because cat is of type Animal
+system.out.println(animal.equals(cat)); // should print false but prints false
+```
