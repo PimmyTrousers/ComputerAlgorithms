@@ -333,6 +333,8 @@ But what if we want to check equality by reference?
 - if `x.equals(y)` then `y.equals(x)` must be true
 - if `x.equals(y)` and `x.equals(z)` then `z.equals(y)`
 
+---
+
 If you override equals incorrectly bad shit will happen. We need to define what will happen if the user passes null to the overridden function.
 1. Null constraint, says that it should return false if null is passed
 2. The overridden function must be consistent
@@ -354,10 +356,14 @@ public boolean equals(Object obj) {
 instead of using the `instanceof` method which breaks our code we can use the `getClass()` method to fix this
 
 ```
-	if this.getClass().equals(obj.getClass()){
+	if (this.getClass().equals(obj.getClass())){
 		return false;
 	}
 ```
+
+---
+
+Listed below in an example from class
 
 ```
 Cat cat = new Cat("tinycat");
@@ -365,3 +371,135 @@ Animal animal = new Animal("tinycat");
 system.out.println(cat.equals(animal)); // should print false but prints true because cat is of type Animal
 system.out.println(animal.equals(cat)); // should print false but prints false
 ```
+
+Below is a class of IntegerSet which is an immutable type which is necessary since it will implement binary search.
+
+```
+public class IntegerSet
+IntegerSet(int [])
+int size()
+boolean contains(int k)
+```
+
+##Binary Search:
+Binary search checks if it is in the middle of the data set and if it is, it will return that position. If the position is greater than the key it will throw away the other half of the search and it will take the middle of that new set and repeat that process until it finds the middle of that array
+
+---
+
+##Generics
+
+generics let us implement a method for any type of data
+
+The issue with the code below is that you are stuck with ints which limit the amount of information you can store.
+
+```
+public class Vector
+public vector(int []);
+int valueAt(int);
+int size();
+```
+
+Listed below is the same class but as a generic which lets us pass any type of data in.
+
+```
+public class Vector<E>
+public vector(E []);
+E valueAt(int);
+int size();
+```
+
+Listed below is an exmaple of using the generic class above
+
+```
+Date [] dates
+Vector <Integer>
+Vector <Date> vec = new Vector<Date>(Dates);
+ivec = new Vector <integer>
+
+```
+
+#9/12/16
+
+```
+a[]
+b[]
+int[]t = a;
+a = b;
+b = t;
+```
+
+This swaps the code in an efficient way. It could instead try to swap the arrays element by element but that would be a lot less efficient. This is a linear time operation.
+
+---
+
+```
+Vector[] victor = new Vector[2];
+Stdout.println(Victor[0].sum() + " " + victor[1].sum());
+```
+
+This will print out a null pointer exception since the object vector hasnt been created IE it has nothing to add.
+
+```
+Vector<E>
+KeyValueSet<K,V,E>;
+```
+This says that the values K,V,E must be objects. At best they will be objects, When it is compiled it must be a type object but when it is ran you can pass whatever you want to it.
+
+---
+
+```
+Public Vector<E>
+	Vector(E[]);
+	int size();
+	E valueAt(int);
+```
+##Class Variables:
+- private final E [] \_data;
+
+##Constants:
+```
+Public (E[] a){
+	_data = (E[]) new Object[a.length];
+	for(i = 0; i < a.length; i++){
+		_data[i]=a[i];
+		\_data[i]=a[i];
+	}
+}
+```
+
+##methods:
+```
+public int size(){
+	return \_data.length
+}
+```
+```
+Public E valueAt(int i){
+	\_rangeCheck(i);
+	return \_data[i];
+}
+```
+
+```
+Private void \_range_check(int i){
+	if(i<0 || i >= size())
+		throw new IndexOutOfBoundException("foo");
+}
+```
+
+---
+
+`Iterable <E>` provides one method, which returns another interface which is the `interator<E>` which has a method in it called `iterator();`.
+The iterator interface has 3 key methods:
+	- boolean hasNext();
+	- E next();
+	- void remove(); *Will remove the last element*
+
+---
+
+##InnerClass
+
+*In Java, just like methods, variables of a class too can have another class as its member. Writing a class within another is allowed in Java. The class written within is called the nested class, and the class that holds the inner class is called the outer class.*
+
+
+`private class Vector Iterator implements Iterator<E>` is an example of a of extending an interface
