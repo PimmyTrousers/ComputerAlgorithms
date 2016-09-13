@@ -503,3 +503,37 @@ The iterator interface has 3 key methods:
 
 
 `private class Vector Iterator implements Iterator<E>` is an example of a of extending an interface
+
+---
+
+a bag is a data type in Java where you put data in and you can't take any out. It also has no iteration format.
+
+```
+Public class Bag<E> implements Iterable<E>
+Bag();
+void Add(E);
+int size();
+Iterator<E> iterator();
+```
+Above is an example of a bag. If you loop through the data you will go through a random path everytime.
+
+```
+Public class queue<E> implements Iterable<E>{
+	Queue();
+	enqueue();
+	E dequeue();
+	boolean isEmpty();
+	int size();
+}
+```
+This is ana example of a Generic queue
+
+```
+Public class Stack<E> implements Iterable<E>{
+	public Stack();
+	void push();
+	E pop();
+	boolean isEmpty();
+	int size();
+}
+```
