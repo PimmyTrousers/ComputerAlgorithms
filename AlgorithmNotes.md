@@ -702,8 +702,10 @@ A way to do this could be to define a list of N's and double the value of N ever
 Cost Frequency models will be important in this class for classifying runtime information. Another way to do it is to block your code into pieces by the frequency that they are used and figure out the runtime for each part and add it up.
 
 Cost Frequency:
+```
 	1. Cost of the operation (time)
 	2. Frequency (How often does it happen)
+```
 
 `summation of Cost(q)*Frequency(q)` q is the block of code that you are analyzing.
 
