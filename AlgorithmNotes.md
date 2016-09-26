@@ -679,7 +679,7 @@ Prove: `T(n) = 5n + 20` is linear O(n) by getting to f(n) <= c * g(n)
 Suppose we have a function T(N) that is O(N). Is my function also O(N^2)? Technically yes it is since there is a possibility that it could O(N^2) at some point.
 
 Suppose we have a `T(N) = 8n^2 + 10n + 25`
-*Proof*
+##*Proof*
 We have 2 functions, g(n) and f(n) over natural numbers. We say f(n) is O(g(n)) if there exists 2 positive constants c and n0 such that f(n) is less than or equal to c * g(n) for all n greater than n0.
 
 	1. Let n0 = 1
@@ -692,12 +692,12 @@ We have 2 functions, g(n) and f(n) over natural numbers. We say f(n) is O(g(n)) 
 	8. 10n + 25 < = 35n^2
 	9. We can observe again that 1 < n < n^2 so that we now know that 10n + 25 will always be less than 35n^2.
 
-	---
+---
 
 Unfortunately we might not know the T(n) for our given function. Then we would have to derive what the T(n) is by running the function itself.
 A way to do this could be to define a list of N's and double the value of N every time and compare the runtime for each set of N's.
 
-*Use stopwatch.java to measure your functions*
+##*Use stopwatch.java to measure your functions*
 
 Cost Frequency models will be important in this class for classifying runtime information. Another way to do it is to block your code into pieces by the frequency that they are used and figure out the runtime for each part and add it up.
 
@@ -725,7 +725,6 @@ boolean isValid(String str){
 ```
 We are splitting the code by the frequency, so the first section is stuff that is only happening once and the other block is the stuff that will happen multiple times. We will refer to the stuff that runs only once as A so A will only be executed once. We will refer to the stuff that runs multiple times as B and the frequency of how many times B will run is dependent on the length of the string. B executes `n/2` times and A executes 1 time. Now we can build our cost frequency model. `T(n) = t0 + (t1*N/2)` is the runtime function for this example.
 
----
 ```
 last_coin_standing(x,y)
 Input: x number of quarters
@@ -848,7 +847,14 @@ Assume the claim is true for 1 <= N <= k
 
 Our induction hypothesis is:
 	sum of i=0 to N+1 of i^2 = the sum from i=1 to N of i^2 + (N+1)^2
-	
+```
+
+---
+
+##Proof of contradiction
+	1. Assume the opposite is true
+	2. Show some known property is false under this assumption
 
 ```
-##Proof of contradiction
+Claim: There are an infinite number of prime numbers
+We assume that this claim is false E Pk where Pk is the largest prime
