@@ -680,7 +680,7 @@ Suppose we have a function T(N) that is O(N). Is my function also O(N^2)? Techni
 
 Suppose we have a `T(N) = 8n^2 + 10n + 25`
 ##*Proof*
-We have 2 functions, g(n) and f(n) over natural numbers. We say f(n) is O(g(n)) if there exists 2 positive constants c and n0 such that f(n) is less than or equal to c * g(n) for all n greater than n0.
+**We have 2 functions, g(n) and f(n) over natural numbers. We say f(n) is O(g(n)) if there exists 2 positive constants c and n0 such that f(n) is less than or equal to c * g(n) for all n greater than n0.**
 
 	1. Let n0 = 1
 	2. We intend to show that T(n)/G(n) <= c for all n > 1
