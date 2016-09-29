@@ -860,3 +860,206 @@ Our induction hypothesis is:
 ```
 Claim: There are an infinite number of prime numbers
 We assume that this claim is false E Pk where Pk is the largest prime
+```
+#9/26/16
+
+## Dynamic Connectivity
+
+**Problem Specification**
+
+1. Input is a sequence of integer pairs where the integer represents some object (p, q)
+2. We interpret a pair (p, q) as meaning p is connected to q
+3. Connected?
+  - Reflective: (p, q)
+  - Symmetric: (p, q) (q, p)
+  - Transitive: (p, q) (q, r) (p, r)
+4. Develop an algo that will filters pairs in the same equivalence class
+
+**Example: **
+
+On notepad
+
+**Union Find**
+It will be an abstract data type:
+1. Initialization
+2. Add connections between objects
+3. Identify components/connections between objects (what equivalence class am I?)
+4. Given x equivalence class, are you a member? (p, q belongs to X?)
+5. Size
+
+```
+public class Abstract UnionFind
+UnionFind (int N) //number of distinct object, size of our set
+
+void union(int p, int q) //create a connection between p and q
+
+int find(int p) //identify the component, how is it connected. which component/class
+
+boolean connected(int p, int q) // returns true if they are connected
+
+int size() // number of distinct components, in our example 2 (2 diff distinct connection going out)
+```
+
+Quick Find: Make find as quick as possible at any expense
+ - User an array to maintain the connection information
+ - id [p] == id [q] if p, q belongs to X
+
+```
+find (p)
+Input: p integer representing object p
+Output: integer component number of p
+
+QuickFind:
+  return id_array[p]; //constant time
+```
+
+Union has to traverse the array and transfer any id that is in same component as p
+
+```
+union (p, q, s) //performs linear time
+Input: integer p and q representing objects p and q, s is the size
+Ouput/Effect: p and q are connected (id_array[p] == id_array[q])
+
+p_id <- find(p)
+q_id <- find(q)
+
+if p_id == q_id then:
+  return s
+
+N <- length of id_array
+for i <- 0 to N -1 :
+  if (id_array[i] == p_id) do:
+    id_array[i] <- q_id
+
+s <- s -1
+return s
+```
+
+**Example**
+
+`starting array`
+0      1       2       3       4       5       6       7       8       9
+---
+`input(4, 3)`
+0      1       2       3       3       5       6       7       8       9
+---
+`input(3, 8)`
+0      1       2       8       8       5       6       7       8       9
+---
+`input(6, 5)`
+0      1       2       8       8       5       5       7       8       9
+
+
+For QuickFind we have `N+3` or `2N + 1` time penalty for union --> linear in both cases
+
+**QuickUnion**
+
+```
+find (p)
+Input: p integer representing object p
+Output: integer component number of p
+
+while(p != id_array[p]) do:
+  p <- id_array[p]
+
+return p
+```
+
+#9/28/16
+
+- ID array of all unique objects
+- Quick find
+- Union operation is the drawback that limited us from calling this linear time
+- Lets make union fast at the expense of the find.
+Below is an implementation of find
+```
+find(p, id)
+
+input: object #
+output: root/component # for object P (int)
+
+while id[p] != p do:
+	p <-- id[p]
+return p
+
+```
+Below is an example of the Union method
+```
+Union(p,q,id)
+Input: p/q: objects p and q to connect (integer)
+Output: // updates linkage structure
+
+P_root <-- find(p)
+q_root <-- find(q)
+if P_root = q_root then:
+	return
+id[p_root] <-- q_root
+count <-- count-1
+```
+**Time Analysis**
+
+Find: 1 + depth of tree (think of it as a binary tree)
+Union: The absolute best case is O(5)
+
+---
+**Algorithms**
+Most of the algorithms that we are going to be looking at this semester will be compare based algorithms. In order to produce a sorted result we will implement a comparison operation and act upon that.
+Sorting algorithms are based on the idea of a key, java uses the comparable interface on the key to put everything in an order by an ordering rule.
+
+```
+Comparable<T>
+int compareTo(T t);
+```
+We use compareTo to compare our data types based on their natural order
+
+1.	0 = v.compareTo(w) when v == w
+		-1 = v.compareTo(w) when v < w
+		1 = v.compareTo(w) when v > w
+
+2. 	v, w must be compatible with each other. You will get an exception if they are incomparable or either value is null.
+
+3.	Must be reflexive, transitive and symmetric
+
+```
+Public class Date implements comparable<Date>
+	private int month;
+	private int day;
+	private int year;
+
+	Public Date(m,d,y){
+		month = m;
+		day = d;
+		year = y;
+	}
+
+int compareTo(Date obj){
+	if(this.year > object.year){
+		return 1;
+	}
+	if(this.year < object.year){
+		return -1;
+	}
+	if(this.day > object.day){
+		return 1;
+	}
+	if(this.day < object.day){
+		return -1;
+	}
+	if(this.month > object.month){
+		return 1;
+	}
+	if(this.month < object.month){
+		return -1;
+	}
+	return 0;
+}
+```
+```
+Public class student implements comparable<student>{
+	student (string fn, string ln);
+
+	int compareTo(Student S){
+		int val = this.ln.compareTo(s.ln);
+		return val;
+	}
+}
