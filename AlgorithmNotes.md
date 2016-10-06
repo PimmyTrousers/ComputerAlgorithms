@@ -1063,3 +1063,157 @@ Public class student implements comparable<student>{
 		return val;
 	}
 }
+```
+
+#10/3/16
+
+`Enum Rank {two, Three .....}`
+
+Knuth's algorithm randomizes elements in an array.
+
+midterm on October 19th:
+	- 1/4 true or false
+	- 1/3 will me mechanics regarding algorithms (ie how does it work)
+	- remainder will be similar to the creative thinking problems on the homework.
+
+Key - something that is comparable, could be irrelevant
+Stability of an algorithm - A sorting algorithm is said to be stable if two objects with equal keys appear in the same order in sorted output as they appear in the input array to be sorted. Some sorting algorithms are stable by nature like Insertion sort, Merge Sort, Bubble Sort, etc. And some sorting algorithms are not, like Heap Sort, Quick Sort, etc.
+##Sorting algorithms
+
+*Selection Sort*
+The basic idea is that you iterate through the unsorted array and swapping the current position with the smallest integer emelment
+Below is the pseudo-code for swap
+##Swap
+```
+Swap(a, i, j)
+	input:
+	a: array of items
+	i, j --> positions to swap
+	output: array with i, j swapped
+	tmp <-- a[i]
+	a[i] <-- a[j]
+	a[j] <-- temp
+
+```
+Our boundary for Swap is O(N) for worst and best case
+Below is the pseudo code for selection sort.
+```
+SelectionSort(a, n){
+	a: array of items to sort
+	n: length of array
+	Output: natural order of items (keys)
+
+	for i <-- 0 to N-1 do: //sorted partition of the array
+		min <-- i
+		for j <-- i+1 to N-1 do: // unsorted partition of the array
+			if a[j] < a[min] then:
+				min <-- j
+			swap(a, i, min)
+}
+```
+Best case and worst case for selection sort is O(N^2)
+
+##Insertion sort
+If you have a stream of data coming in you can sort it with Insertion sort
+
+```
+InsertionSort(a, n)
+	Input:
+	a - array of items
+	n - number of items
+
+	Output: Sorted array
+
+	for i <-- 0 to N-1 do:
+		j <-- i
+		while j > 0 && a[j] < a[j-1] do:
+			Swap(a, j, j-1)
+			j <-- j-1
+
+```
+Best case this is linear O(N) since if it is already sorted the while loop with finish in N time. Worst case this is O(N^2)
+
+#10/5/16
+
+Suppose we want to improve upon Insertion sort where we want the increment to go back h amount of steps rather than one at a time:
+By this we get,
+##Shell sort (h-sorting)
+
+We introduce the notion of a gap sequence with shell sort
+h = {4,2,1}
+for the example above, it will h-sort by 4 then 2 then 1.
+shell sort has a tilde time of, `~O(n*log(n))`
+CS people like it because it offers a lot of research material on how to optimize which gap sequencing scheme to pick.
+You can almost get this to compete with quick sort with some of the published optimizations. The worst case also gets improved with these optimizations by reducing the exponent from a whole number such as 2 to 1.5.
+
+```
+0		1		2		3		4		5		6
+T		I		N		Y		C		A		T	(h=4)
+C		I		N		Y		T		A		T	(h=4)
+C		A		N		Y		T		I		T	(h=4)
+C		A		N		Y		T		I		T	(h=2)
+C		A		N		I		T		Y		T (h=2)
+A		C		N		I		T		Y		T	(h=1)
+A		C		N		I		T		Y		T	(h=1)
+A		C		I		N		T		Y		T	(h=1)
+A		C		I		N		T		T		Y	(h=1)
+```
+
+There is a tradeoff with algorithms of memory and time. In order to improve in order of time we might have to take a hit in space. All the sorts we have gone over so far can all be done in the space that it is defined in. There is no need to duplicate or extend the arrays. Merge sort and quick sort are examples of sorting algorithms that require either recursion which takes up memory, or creating a copy of the array which takes up extra space.
+
+---
+
+If you have an int[] of size N you will lose 4N bytes of memory space because the size of all primitives in Java is 4 bytes
+
+Harmonic Sum = 1 + 1/2 + 1/3 + 1/4 + 1/5 + ....... + 1/N ~O(log(n))
+Triangular Sum = 1 + 2 + 3 + ...... + N ~O((N^2)/2)
+Geometric Sum = 1 + 2 + 4 + 8 + ....... + N = ~O(2N-1)
+N choose K  = ~O((N^K)/K!)
+Exponential approximation = (1-1/x)^x = ~O(1/e)
+
+##Merge Operation and Merge Sort
+Merge: takes 2 ordered arrays --> combines into 1 ordered array
+```
+Input = a = [2, 4, 6, 8]
+				b = [1, 3, 5, 7]
+Output = c = [1, 2, 3, 4, 5, 6, 7, 8]
+```
+Pseudo code of merge sort
+```
+abstract_Merge(a[], low, mid, high)
+	input: array of keys, with 2 ordered partitions defined by low, mid, high
+			 	 low: beginning of first partition
+				 mid: end of first partition
+				 high: end of the second partition
+
+	i <-- low
+	j <-- mid+1
+	for k <-- low to high do:
+		aux[k] <-- a[k]
+	for k <-- low to high do:
+		if i > mid then
+			a[k] <-- aux[j]
+			j <-- j+1
+		else if i < mid then
+			a[k] <-- aux[i]
+			i <-- i+1
+		else if aux[j] < aux[i] then
+			a[k] <-- aux[j]
+			j <-- j+1
+		else do:
+			a[k] <-- aux[i]
+			i <-- i+1
+```
+
+Example of Merge sort:
+
+```
+a[] = [a,d,f,g,w,a,b,e,f,m]
+merge(a,0,4,9)
+		K		I		J		a,d,f,g,w | ,a,b,e,f,m
+		0		1		5		a,d,f,g,w | ,a,b,e,f,m
+		1		1		6		a,a,f,g,w | ,a,b,e,f,m
+		2		1		7		a,a,b,g,w | ,a,b,e,f,m
+		3		2		7		a,a,b,d,w | ,a,b,e,f,m
+		4		2		8		a,a,b,d,e | ,a,b,e,f,m
+				
