@@ -1165,11 +1165,11 @@ There is a tradeoff with algorithms of memory and time. In order to improve in o
 
 If you have an int[] of size N you will lose 4N bytes of memory space because the size of all primitives in Java is 4 bytes
 
-Harmonic Sum = 1 + 1/2 + 1/3 + 1/4 + 1/5 + ....... + 1/N ~O(log(n))
-Triangular Sum = 1 + 2 + 3 + ...... + N ~O((N^2)/2)
-Geometric Sum = 1 + 2 + 4 + 8 + ....... + N = ~O(2N-1)
-N choose K  = ~O((N^K)/K!)
-Exponential approximation = (1-1/x)^x = ~O(1/e)
+	1. Harmonic Sum = 1 + 1/2 + 1/3 + 1/4 + 1/5 + ....... + 1/N ~O(log(n))
+  2. Triangular Sum = 1 + 2 + 3 + ...... + N ~O((N^2)/2)
+	3. Geometric Sum = 1 + 2 + 4 + 8 + ....... + N = ~O(2N-1)
+	4. N choose K  = ~O((N^K)/K!)
+	5.Exponential approximation = (1-1/x)^x = ~O(1/e)
 
 ##Merge Operation and Merge Sort
 Merge: takes 2 ordered arrays --> combines into 1 ordered array
