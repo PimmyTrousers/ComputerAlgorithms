@@ -1,4 +1,4 @@
-#8/29/16:
+# 8/29/16
 
 Example:
 MaxElements (A, n)
@@ -191,7 +191,7 @@ public class Date{
 ```
 
 ---
-Mutable vs Immutable
+*Mutable vs Immutable*
 
 Some data types are by nature mutable. For example string, if you alter a string a new string object is created. For example if you two strings:
 `String a = "tiny"` and `String b = "cat"` and concat them using `a = a.concat(b)`. There are three string objects created here, at `a`, `b` and the last one when we concat it. Arrays are also mutable.
@@ -218,6 +218,7 @@ vector V  = new Vector(ds);
 ds[0] = 0.0;
 ds[1] = 0.0;
 ```
+
 The vector may have the new values. So we intended to make our vector Immutable by saying `final`, but we just changed its values here to `0.0`. `final` says it will not change the value to where the array points, so it will point to the `ds` memory space. When we create our vector `V`, its values points to the same place as `ds` values.
 
 To fix it, we create a new array inside the instance and copy it. Known as `defensive-copy` and therefore we will change our code to:
@@ -246,31 +247,26 @@ As the size of your data grows the execution time grows linearly, as you will ne
 Java provides two types of implementation inheritance:
 
 - Sub classing
-  -The notion of object inheritance. If you have parent object for e.g. `animal` and a sub-class `cat.` It inheritance all the properties of `animal` but it will also have its own properties.
-  -In Java we use `extends` keyword to tell a class inherits from its superclass.
+  - The notion of object inheritance. If you have parent object for e.g. `animal` and a sub-class `cat.` It inheritance all the properties of `animal` but it will also have its own properties.
+  - In Java we use `extends` keyword to tell a class inherits from its superclass.
 
 - Sub typing
-  -Its an alternative to inheritance in Java. Instead of inherit the properties and methods of a parent class, it allows us to inherit a relationship.
-  -One can take unrelated classes and define a relationship.
-  -For example if we have `animals` and `spaceships`. And we want to say they both require fuel, we can define a method `consume` which will be an `interface` in Java.
-  -We use the `implements` keyword to sub type from a different class.
-
-```
-  Public interface Eater(){
-    consume();
-  }
-```
-
-*Inheriting from a base class*
-
-- class getClass(); - This will return an object of the class itself.
-- boolean equals(object); - Recieves an object and checks equality
-- String toString(); - Prints out JavaEncoded string for the name if the datatype provide is not string.
-- int hashCode(); - returns an integer, used for hashing
+  - Its an alternative to inheritance in Java. Instead of inherit the properties and methods of a parent class, it allows us to inherit a relationship.
+  - One can take unrelated classes and define a relationship.
+  - For example if we have `animals` and `spaceships`. And we want to say they both require fuel, we can define a method `consume` which will be an `interface` in Java.
+  - We use the `implements` keyword to sub type from a different class.
 
 ---
 
-#9/7/16:
+## Inheriting from a base class
+
+	1. class getClass(); - This will return an object of the class itself.
+ 	2. boolean equals(object); - Receives an object and checks equality
+ 	3. String toString(); - Prints out JavaEncoded string for the name if the datatype provide is not string.
+	4. int hashCode(); - returns an integer, used for hashing
+
+
+# 9/7/16
 
 Subclassing is casting from a parent class
 All classes inherit from the object class
@@ -381,12 +377,12 @@ int size()
 boolean contains(int k)
 ```
 
-##Binary Search:
+## Binary Search
 Binary search checks if it is in the middle of the data set and if it is, it will return that position. If the position is greater than the key it will throw away the other half of the search and it will take the middle of that new set and repeat that process until it finds the middle of that array
 
 ---
 
-##Generics
+## Generics
 
 generics let us implement a method for any type of data
 
@@ -418,7 +414,7 @@ ivec = new Vector <integer>
 
 ```
 
-#9/12/16
+# 9/12/16
 
 ```
 a[]
@@ -453,10 +449,10 @@ Public Vector<E>
 	int size();
 	E valueAt(int);
 ```
-##Class Variables:
+## Class Variables:
 - private final E [] \_data;
 
-##Constants:
+## Constants:
 ```
 Public (E[] a){
 	_data = (E[]) new Object[a.length];
@@ -467,7 +463,7 @@ Public (E[] a){
 }
 ```
 
-##methods:
+## methods:
 ```
 public int size(){
 	return \_data.length
@@ -497,7 +493,7 @@ The iterator interface has 3 key methods:
 
 ---
 
-##InnerClass
+## InnerClass
 
 *In Java, just like methods, variables of a class too can have another class as its member. Writing a class within another is allowed in Java. The class written within is called the nested class, and the class that holds the inner class is called the outer class.*
 
@@ -538,11 +534,11 @@ Public class Stack<E> implements Iterable<E>{
 }
 ```
 
-#9/14/16
+# 9/14/16
 
 Algorithm's to solve equations like this: (1+(2-3))
 
-##Dijkstra's two stack algorithm
+## Dijkstra's two stack algorithm
 Parses tokens. Tokens are the pieces of information that are useful to you
 	1. Create two stacks
 	2. Read from left to right
@@ -577,7 +573,7 @@ if next item is operand then:
 
 ---
 
-##Linked List:
+## Linked List:
 
 ```
 Private class Node{
@@ -650,7 +646,7 @@ public Node (Node e){
 	}
 ```
 
-##Order of growth classification
+## Order of growth classification
 
 	1. Constant ('c', '1') - Program where running time is independent of the size of operators we are running it on. Example `a + b` -> constant time
 	2. Logarithmic - Running time is based on the size of input is expressed by `y = c * log(N)`, where `N` represents the input size. The log is base 2 (x^A = B --> Logx(B) = A). `Binary Search` in the IntegerSet homework is in O(log(N)) time.
@@ -674,12 +670,12 @@ Prove: `T(n) = 5n + 20` is linear O(n) by getting to f(n) <= c * g(n)
 	7. 20 <= 20n and n > 1 therefore this is O(n)
 
 
-#9/19/16
+# 9/19/16
 
 Suppose we have a function T(N) that is O(N). Is my function also O(N^2)? Technically yes it is since there is a possibility that it could O(N^2) at some point.
 
 Suppose we have a `T(N) = 8n^2 + 10n + 25`
-##*Proof*
+## *Proof*
 **We have 2 functions, g(n) and f(n) over natural numbers. We say f(n) is O(g(n)) if there exists 2 positive constants c and n0 such that f(n) is less than or equal to c * g(n) for all n greater than n0.**
 
 	1. Let n0 = 1
@@ -697,7 +693,7 @@ Suppose we have a `T(N) = 8n^2 + 10n + 25`
 Unfortunately we might not know the T(n) for our given function. Then we would have to derive what the T(n) is by running the function itself.
 A way to do this could be to define a list of N's and double the value of N every time and compare the runtime for each set of N's.
 
-##*Use stopwatch.java to measure your functions*
+## *Use stopwatch.java to measure your functions*
 
 Cost Frequency models will be important in this class for classifying runtime information. Another way to do it is to block your code into pieces by the frequency that they are used and figure out the runtime for each part and add it up.
 
@@ -765,7 +761,7 @@ We say some function f(n) has some tilde `~g(n)` if `lim as N approaches infinit
 
 ---
 
-#9/20/16
+# 9/20/16
 
 Problems with HW 2:
 	1. If you mess with the signature of the equals you will not override the equals method
@@ -803,7 +799,7 @@ T(N) = t0 + t1N + t2(N-1) + t3X + t4Y is the time function for this specific alg
 
 ---
 
-##Proof of induction
+## Proof of induction
 Time to learn proof of induction! O_O
 	1. The first step to this process is to establish a base case.
 	2. create a inductive hypothesis
@@ -853,7 +849,7 @@ Our induction hypothesis is:
 
 ---
 
-##Proof of contradiction
+## Proof of contradiction
 	1. Assume the opposite is true
 	2. Show some known property is false under this assumption
 
@@ -861,7 +857,7 @@ Our induction hypothesis is:
 Claim: There are an infinite number of prime numbers
 We assume that this claim is false E Pk where Pk is the largest prime
 ```
-#9/26/16
+# 9/26/16
 
 ## Dynamic Connectivity
 
@@ -965,7 +961,7 @@ while(p != id_array[p]) do:
 return p
 ```
 
-#9/28/16
+# 9/28/16
 
 - ID array of all unique objects
 - Quick find
@@ -1065,7 +1061,7 @@ Public class student implements comparable<student>{
 }
 ```
 
-#10/3/16
+# 10/3/16
 
 `Enum Rank {two, Three .....}`
 
@@ -1078,12 +1074,12 @@ midterm on October 19th:
 
 Key - something that is comparable, could be irrelevant
 Stability of an algorithm - A sorting algorithm is said to be stable if two objects with equal keys appear in the same order in sorted output as they appear in the input array to be sorted. Some sorting algorithms are stable by nature like Insertion sort, Merge Sort, Bubble Sort, etc. And some sorting algorithms are not, like Heap Sort, Quick Sort, etc.
-##Sorting algorithms
+## Sorting algorithms
 
 *Selection Sort*
 The basic idea is that you iterate through the unsorted array and swapping the current position with the smallest integer emelment
 Below is the pseudo-code for swap
-##Swap
+## Swap
 ```
 Swap(a, i, j)
 	input:
@@ -1113,7 +1109,7 @@ SelectionSort(a, n){
 ```
 Best case and worst case for selection sort is O(N^2)
 
-##Insertion sort
+## Insertion sort
 If you have a stream of data coming in you can sort it with Insertion sort
 
 ```
@@ -1133,11 +1129,11 @@ InsertionSort(a, n)
 ```
 Best case this is linear O(N) since if it is already sorted the while loop with finish in N time. Worst case this is O(N^2)
 
-#10/5/16
+# 10/5/16
 
 Suppose we want to improve upon Insertion sort where we want the increment to go back h amount of steps rather than one at a time:
 By this we get,
-##Shell sort (h-sorting)
+## Shell sort (h-sorting)
 
 We introduce the notion of a gap sequence with shell sort
 h = {4,2,1}
@@ -1171,7 +1167,7 @@ If you have an int[] of size N you will lose 4N bytes of memory space because th
 	4. N choose K  = ~O((N^K)/K!)
 	5.Exponential approximation = (1-1/x)^x = ~O(1/e)
 
-##Merge Operation and Merge Sort
+## Merge Operation and Merge Sort
 Merge: takes 2 ordered arrays --> combines into 1 ordered array
 ```
 Input = a = [2, 4, 6, 8]
@@ -1218,7 +1214,7 @@ merge(a,0,4,9)
 		4		2		8		a,a,b,d,e | ,a,b,e,f,m
 ```
 
-#10/10/16
+# 10/10/16
 ```
 Merge (a, lo, mid, hi)
 	Input: a: array of items s.t. the partitions defined by lo, mid and hi are sorted
@@ -1261,11 +1257,11 @@ Top Down MergeSort
 
 This has a time classification of Nlog(N) which is no better than any of the other methods we have gone over so far.
 
-#10/13/16
+# 10/13/16
 
 Chapters 2.1, 2.2, 2.3 to study for the midterm
 
-##Nlog(N) Barrier
+## Nlog(N) Barrier
 
 **Claim: No compare based sorting algorithm can guarantee to sort N items with fewer than Nlog(N) compares**
 
@@ -1316,7 +1312,7 @@ In the best case when these are the same this will be of order 1 time magnitude
 
 ---
 
-##Quick sort
+## Quick sort
 lets build an algorithm that can take advantage of the non uniqueness of keys
 Quick Sort uses a partitioning system to sort the elements
 
@@ -1378,3 +1374,153 @@ partition(A, lo, hi)
   swap A[i] with A[hi]
   return i
 ```
+
+# Reading Notes
+
+## 2.1
+
+Our primary concern when it comes to algorithms, is to rearrange arrays of items where each item contains a key. The idea behind rearranging the keys is to do to is a manner so that the keys are naturally ordered.
+
+We put our sort code in a sort() method within a single class along with private helper functions `less()` and `exch()`. `less()` checks whether a number is less than the one it is being compared to and `exch()` will swap two values in an array.
+
+The comparable interface makes implementing `less()` very straightforward
+
+**Certification**
+
+Does sort implementation always pit the array in order, no matter what the initial order? As a conservative practice, we include the statement `assert isSorted(a);` in our test client to certify that array entries are in order after the sort. It is reasonable to include this statement in every sort implementation, even though we normally test our code and develop mathematical arguments that our algorithms are correct.
+
+**Extra Memory** The amount of extra memory used by a sorting algorithm is often as important a factor as running time. The sorting algorithms divide into two basic types: those that sort in place and use no extra memory except perhaps for a small function-call stack to a constant number of instance variables, an those that need enough extra memory to hold another copy of the array to be sorted.
+
+**Types of Data**
+
+Our sort code is effective for ant item type that implements the `Comparable` interface. Adhering to Java's convention in this way is convenient because many of the types of data that you might want to sort implement `Comparable`. For example, Java's numeric wrapper types such as Integer and Double implement Comparable, as do String and even more complex variable types such as FILE and URL. Listed below is an exmaple of the `compareTo` method.
+
+```
+public int compareTo(Date that){
+	if(this.year > that.year) return +1;
+	if(this.year < that.year) return -1;
+	if(this.month > that.month) return +1;
+	if(this.month < that.month) return -1;
+	if(this.day > that.day) return +1;
+	if(this.day < that.day) return -1;
+}
+```
+
+Java's convention is that the call `v.compareTo(w)` returns a integer that is negative, zero, or positive when v < w, v = w, or v > w, respectively. By convention, code `v.compareTo(w)` throws an exception if v and w are incompatible types or either is null. Furthermore `compareTo()` must implement a total order. it must be
+	1. Reflexive (for all v, v = v)
+	2. Antisymmetric (for all v and w, if v < w then w > v and if v=w then w=v)
+	3. Transitive (for all v, w, and x, if v <= w and w <= x then v <= x)
+These rules are intuitive and standard in mathematics.
+
+## **Selection Sort**
+
+one of the simplest sorting algorithms is as follows, find the smallest element in the array and exchange it for the first value in the array. Then find the next smallest element and exchange it for the second value in the array. Continue this until the entire array is sorted. This method of sorting is called selection sort and is one of the most trivial sorting algorithms out there. Below is an exmaple of selection sort
+
+```
+public class Selection{
+	public static void sort(Comparable[] a){ // sort a into increasing order
+		int N = a.length;
+		for(int i = 0; i < N; i++){ // Exchange a[i] with smallest entry in a[i+1...N).
+			int min = i; // index of a minimal entry
+			for(int j = i+1; j < N; j++){
+				if(Less(a[j], a[min])) min = j;
+			exch(a, i, min);
+			}
+		}
+	}
+}
+```
+The work of moving the items around falls outside the inner loop: each exchange puts an item into its final position so the number of exchanges in N. Thus, the running time is dominated by the number of compares.
+
+*Proposition A*
+Selection sort uses N<sup>2</sup>/2 compares and N exchanges to sort an array of length N.
+
+You can prove this with by examining the trace table and noticing that the table in N by N in which unshaded letters correspond to compares.
+
+```
+i   min   0   1   2   3   4   5   6   7   8   9   10
+          S   O   R   T   E   X   A   M   P   L   E
+0   6			S   O   R   T   E   X   A   M   P   L   E
+1   4     A   O   R   T   E   X   S   M   P   L   E
+2   10    A   E   R   T   O   X   S   M   P   L   E
+3   9     A   E   E   T   O   X   S   M   P   L   R
+4   7     A   E   E   L   O   X   S   M   P   T   R
+5   7     A   E   E   L   M   X   S   O   P   T   R
+6   8     A   E   E   L   M   O   S   X   P   T   R
+7   10    A   E   E   L   M   O   P   X   S   T   R
+8   8     A   E   E   L   M   O   P   R   S   T   X
+9   9     A   E   E   L   M   O   P   R   S   T   X
+10  10    A   E   E   L   M   O   P   R   S   T   X
+```
+
+In summary selection sort is a simple sorting method that is easy to understand and to implement and is characterized by the following two signature properties.
+
+**Running time is insensitive to input**
+The process of finding the smallest item on one pass through the array does not give much information about where the smallest item might be on the next pass .This property can be disadvantageous in some situations. For example, the person using the sort client might be surprised to realize that it takes about as long to run selection sort for an array that is already in sorted order or for an array with all keys equal to as it does for a randomly ordered array.
+
+**Data movement is minimal**
+
+Each of the N exchanges changes the value of two array entries, so selection sort uses N exchanges. the number of exchanges is a linear function of the array size. None of the other sorting algorithms that we consider have this property. (most involve linearithmic or quadratic growth)
+
+## **Insertion Sort**
+
+ The algorithm that people often use to sort bridge hands is to consider the cards one at a time, inserting each into its proper place among those already considered. In a computer implementation we need to make space to insert the current item into the vacated position. This method is called insertion sort. Code for this can be seen below.
+
+ ```
+public class Insertion{
+	public static void sort(comparable[] a){
+		int N = a.length;
+		for (int i = 0; i < N; i++){
+			for(int j = i; j > 0 && less(a[j], a[j-1]); j--){
+				exch(a, j, j-1);
+			}
+		}
+	}
+}
+ ```
+For each i from 1 to N-1, exchange a[i] with the entries that are larger in a[0] through a[i-1]. As the index i travels from left to right, the entries to its left are in sorted order in the array, so the array is fully sorted when i reaches the end right.
+
+Unlike selection sort, the running tie of insertion sort depends on the initial order of the items in the input. For example, if the array is large and its entries are already in order ( or nearly in order), then insertion sort is much, much faster that if entries are randomly ordered or in reverse order.
+
+*Proposition B*
+Insertion sort uses ~N<sup>2</sup>/4 compares and ~N<sup>2</sup>/4 exchanges to sort a randomly ordered array of length N with distinct keys, on the average. The worst case is ~N<sup>2</sup>/2 compares and ~N<sup>2</sup>/2 exchanges and the best case is N-1 compares and 0 exchanges.
+
+```
+i   j   0   1   2   3   4   5   6   7   8   9   10
+        S   O   R   T   E   X   A   M   P   L   E
+1   0   O   S   R   T   E   X   A   M   P   L   E
+2   1   O   R   S   T   E   X   A   M   P   L   E
+3   3   O   R   S   T   E   X   A   M   P   L   E
+4   0   E   O   R   S   T   X   A   M   P   L   E
+5   5   E   O   R   S   T   X   A   M   P   L   E
+6   0   A   E   O   R   S   T   X   M   P   L   E
+7   2   A   E   M   O   R   S   T   X   P   L   E
+8   4   A   E   M   O   P   R   S   T   X   L   E
+9   2   A   E   L   M   O   P   R   S   T   X   E
+10  2   A   E   E   L   M   O   P   R   S   T   X
+        A   E   E   L   M   O   P   R   S   T   X
+```
+
+Proof B: the number of compares and exchanges is easy to visualize in the N by N diagram that we use to illustrate the sort. We count entries below the diagonal -- all of them, in the worst case, and none of them, in the best case. For randomly ordered arrays, we expect each item to go about halfway back on the average, so we count one-half entries below the diagonal. The number of compares is the number of exchanges plus an additional term equal to N minus the number of times the item is inserted is the smallest so far. In the worst case (array is reverse order), this term is negligible in relation to the total; in the best case it is equal to N-1.
+
+Insertion sort works we;; for certain types of nonrandom arrays that often arise in practice, even if they are huge. For example, if you already have a sorted array that you implement insertion sort on, the sort will immediately determine that each element is in its correct place and the total running time is linear. The same is true for an array who's keys are all equal.
+
+## **Shell Sort**
+
+# Helpful hints for the midterm
+
+Well, in Java an int is a primitive while an Integer is an Object. Meaning, if you made a new Integer:
+
+`Integer i = new Integer(6);`
+You could call some method on i:
+
+`String s = i.toString();//sets s the string representation of i`
+Whereas with an int:
+
+`int i = 6;`
+You cannot call any methods on it, because it is simply a primitive. So:
+
+`String s = i.toString();//will not work!!!`
+
+
+---
