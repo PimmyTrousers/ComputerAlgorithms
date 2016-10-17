@@ -1377,7 +1377,7 @@ partition(A, lo, hi)
 
 # Reading Notes
 
-## 2.1
+## Chapter 2.1
 
 Our primary concern when it comes to algorithms, is to rearrange arrays of items where each item contains a key. The idea behind rearranging the keys is to do to is a manner so that the keys are naturally ordered.
 
@@ -1393,7 +1393,7 @@ Does sort implementation always pit the array in order, no matter what the initi
 
 **Types of Data**
 
-Our sort code is effective for ant item type that implements the `Comparable` interface. Adhering to Java's convention in this way is convenient because many of the types of data that you might want to sort implement `Comparable`. For example, Java's numeric wrapper types such as Integer and Double implement Comparable, as do String and even more complex variable types such as FILE and URL. Listed below is an exmaple of the `compareTo` method.
+Our sort code is effective for ant item type that implements the `Comparable` interface. Adhering to Java's convention in this way is convenient because many of the types of data that you might want to sort implement `Comparable`. For example, Java's numeric wrapper types such as Integer and Double implement Comparable, as do String and even more complex variable types such as FILE and URL. Listed below is an example of the `compareTo` method.
 
 ```
 public int compareTo(Date that){
@@ -1432,7 +1432,7 @@ public class Selection{
 ```
 The work of moving the items around falls outside the inner loop: each exchange puts an item into its final position so the number of exchanges in N. Thus, the running time is dominated by the number of compares.
 
-*Proposition A*
+**Proposition A**
 Selection sort uses N<sup>2</sup>/2 compares and N exchanges to sort an array of length N.
 
 You can prove this with by examining the trace table and noticing that the table in N by N in which unshaded letters correspond to compares.
@@ -1482,7 +1482,7 @@ For each i from 1 to N-1, exchange a[i] with the entries that are larger in a[0]
 
 Unlike selection sort, the running tie of insertion sort depends on the initial order of the items in the input. For example, if the array is large and its entries are already in order ( or nearly in order), then insertion sort is much, much faster that if entries are randomly ordered or in reverse order.
 
-*Proposition B*
+**Proposition B**
 Insertion sort uses ~N<sup>2</sup>/4 compares and ~N<sup>2</sup>/4 exchanges to sort a randomly ordered array of length N with distinct keys, on the average. The worst case is ~N<sup>2</sup>/2 compares and ~N<sup>2</sup>/2 exchanges and the best case is N-1 compares and 0 exchanges.
 
 ```
@@ -1501,11 +1501,50 @@ i   j   0   1   2   3   4   5   6   7   8   9   10
         A   E   E   L   M   O   P   R   S   T   X
 ```
 
-Proof B: the number of compares and exchanges is easy to visualize in the N by N diagram that we use to illustrate the sort. We count entries below the diagonal -- all of them, in the worst case, and none of them, in the best case. For randomly ordered arrays, we expect each item to go about halfway back on the average, so we count one-half entries below the diagonal. The number of compares is the number of exchanges plus an additional term equal to N minus the number of times the item is inserted is the smallest so far. In the worst case (array is reverse order), this term is negligible in relation to the total; in the best case it is equal to N-1.
+**Proof B:**
+ the number of compares and exchanges is easy to visualize in the N by N diagram that we use to illustrate the sort. We count entries below the diagonal -- all of them, in the worst case, and none of them, in the best case. For randomly ordered arrays, we expect each item to go about halfway back on the average, so we count one-half entries below the diagonal. The number of compares is the number of exchanges plus an additional term equal to N minus the number of times the item is inserted is the smallest so far. In the worst case (array is reverse order), this term is negligible in relation to the total; in the best case it is equal to N-1.
 
 Insertion sort works we;; for certain types of nonrandom arrays that often arise in practice, even if they are huge. For example, if you already have a sorted array that you implement insertion sort on, the sort will immediately determine that each element is in its correct place and the total running time is linear. The same is true for an array who's keys are all equal.
 
 ## **Shell Sort**
+
+To exhibit the value of knowing properties of elementary sorts, we next consider a fast algorithm based on insertion sort. Insertion sort is slow for large unordered arrays because the only exchange it does involves adjacent entries, so items can move through the array only one place at a time. For example if the time with the smallest key happens to be at the end of the array N-1 exchanges are needed to get that one item where it belongs, shellsort is a simple extension of insertion sort that gains speed by allowing exchanges of array entries that are far apart, to produce partially sorted arrays that can be efficiently sorted, eventually by insertion sort.
+
+The idea is to rearrange the array to give it the property that taking every Hth entry yields a sorted subsequence. Such an array is said to be h-sorted. Put another way, an h-sorted array is h independent sorted subsequences, interleaved together. By h-sorting for some large value of h, we can move items in the array long distances and thus make is easier to h-sort for smaller values of h. Using such a procedure for any sequence of values of h that end in 1 will produce a sorted array: that is shellsort. An example of shellsort can be found below.
+
+```
+public class Shell{
+	public static void sort(Comparable[] a){
+		int N = a.length;
+		int h = 1;
+		while(h < N/3) h = 3*h + 1;
+		while(h >= 1){
+			for(int i = h; i < N; h++){
+				for(int j = i; j >= h && less(a[j], a[j-h]); j -= h){
+					exch(a, j, j-h);
+				}
+			}
+			h = h/3;
+		}
+	}
+}
+```
+
+The general convention for using shell sort is using an h sequence of decreasing values 1/2*(3<sup>k</sup>-1), starting at the smallest increment greater than or equal to N/3 and decreasing to 1. we refer to such a sequence as an increment sequence. The example above computes its increment sequence; another alternative is to store an increment sequence in the array.
+
+One way to implement shell sort would be, for each h, to use insertion sort independently on each of the h subsequences. Because the subsequences are independent, we can use an even simpler approach: when h-sorting the array, we insert each item among the previous items in its h-subsequence by exchanging it with those that have larger keys (moving them each one position to the right of the sequence). We accomplish this by implementing insertion- sort code, but modified to decrement by h instead of 1 when moving through the array. This observation reduces the shell sort implementation to an insertion sort like pass through the array for each increment.
+
+Shell sort gains efficiency by making a tradeoff between size and partial order in the subsequences. At the beginning, the subsequences are short; later in the sort the subsequences are partially sorted. In both cases, insertion sort is the method of choice. The extend to which the subsequences are partially sorted is a variable factor that depends strongly on the increment sequence.
+
+As you can learn from comparing insertion sort and selection sort, shell sort is muc faster that insertion sort and selection sort, and its speed advantages increases with the array size. Shell sort makes it possible to address sorting problems that could not be addressed with the more elementary algorithms.
+
+## **Chapter 2.2 Merge Sort**
+
+The algorithms described in this chapter are based on combining two ordered arrays to make one larger ordered array. This operation immediately leads to a simple recursive sort method known as **merge sort**; to sort an array, divide it into two halves, sort the two halves (recursively) and then merge the results. One of the major benefits of merge sort is that it guarantees to sort any array of N elements in time proportional to Nlog(N).
+
+**Abstract in place merge.**
+
+The straightforward approach to implementing merging is to design a method that merges two disjoint ordered arrays of comparable objects into a third array. This strategy is easy to implement: create an output array of the requisite size and then choose successively the smallest remaining item from the two input arrays to e the next item added to the output array. 
 
 # Helpful hints for the midterm
 
