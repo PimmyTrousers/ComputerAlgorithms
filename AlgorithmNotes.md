@@ -1375,6 +1375,68 @@ partition(A, lo, hi)
   return i
 ```
 
+# 10/17/16
+
+**Continuing on Quick Sort.**
+
+Below is an example of a method that returns a partition point for quick sort.
+
+```
+private static int partition(Comparable[] a, int lo, int hi){
+	int i = lo, j = hi+1;
+	Comparable v = a[lo];
+	while (true){
+		while(less(a[++i], v)) if(i == hi) break;
+		while(less(v, a[--j])) if(j == lo) break;
+		if(i >= j) break;
+		exch(a, i, j);
+	}
+	// this final exchange moves our pivot into place
+	exch(a, lo, j);
+	return j;
+}
+```
+Steps for deciding where to make the partition of the array
+
+	1. let C<sub>N</sub> be the average # of compares (Nlog(N)) needed to sort N distinct keys
+	2. C<sub>0</sub> = C<sub>1</sub> = 0
+	3. N + 1 = partition
+	4. 1/N * (The sum from n=0 to N-1 of C<sub>n</sub>)
+	5. C<sub>N</sub> = N + 1 + 2/N * (The sum from n=0 to N-1 of C<sub>n</sub>)
+
+## **For the test go over generic Java concepts**
+**1.**
+	- Generics <T>
+	- Type erasure
+	- Various common interfaces:
+		- Comparable
+		- Iterator
+		- Iterable
+	- mutable vs. immutable types
+	- Basic data types:
+		- bags (unordered collection)
+		- queues (Gives you the ability to enqueue and dequeue FIFO)
+		- stacks (Push Pop operations, LIFO)
+	- Key data structures/the abstract data types
+	- static vs. non static access
+**2.**
+	- Analysis:
+		-	big O order of growth functions
+		- Definition of what the Big O function is
+		- Can you do a cost frequency Analysis
+		- Build algorithm X from pseudocode that performs in O(something)
+		- True or false questions based on their respective big O notations
+**3.**
+	- Sorting:
+		- working with modifying, comparing and analyzing sorting algorithms
+		- be familiar with:
+			- insertion
+			- selection
+			- merge
+			- quick
+			- h sort (shell sort)
+
+
 # Reading Notes
 
 ## Chapter 2.1
@@ -1414,7 +1476,7 @@ These rules are intuitive and standard in mathematics.
 
 ## **Selection Sort**
 
-one of the simplest sorting algorithms is as follows, find the smallest element in the array and exchange it for the first value in the array. Then find the next smallest element and exchange it for the second value in the array. Continue this until the entire array is sorted. This method of sorting is called selection sort and is one of the most trivial sorting algorithms out there. Below is an exmaple of selection sort
+one of the simplest sorting algorithms is as follows, find the smallest element in the array and exchange it for the first value in the array. Then find the next smallest element and exchange it for the second value in the array. Continue this until the entire array is sorted. This method of sorting is called selection sort and is one of the most trivial sorting algorithms out there. Below is an example of selection sort
 
 ```
 public class Selection{
@@ -1546,6 +1608,33 @@ The algorithms described in this chapter are based on combining two ordered arra
 
 The straightforward approach to implementing merging is to design a method that merges two disjoint ordered arrays of comparable objects into a third array. This strategy is easy to implement: create an output array of the requisite size and then choose successively the smallest remaining item from the two input arrays to e the next item added to the output array.
 
+However when we merge sort a large array, we are doing a huge number of merges, so the cost of creating a new array to gold the output every time that we do a merge is problematic. This is where in place merge comes in to play. The idea behind this is that we sort the first half then sort the next half and merge the two halves. Solutions to this tend to be quite complex especially by comparison to alternatives that use extra space. Below is source code for an implementation of this.
+
+```
+private static void merge(Comparable[] a, int lo, int mid, int hi){
+	int i = lo, j = mid+1;
+
+	for(int k = lo; k<= hi; k++){
+		aux[k] = a[k];
+	}
+	for (int k = 0; k <= hi; k++){
+		if (i > mid) 									 a[k] = aux[j++];
+		else if (j > hi) 							 a[k] = aux[i++];
+		else if (less(aux[j], aux[i])) a[k] = aux[j++];
+		else  												 a[k] = aux[i++];			
+	}
+}
+```
+
+## **Top Down MergeSort**
+
+This algorithm of Top Down merge sort is one of the best examples of a divide and conquer paradigm for efficient algorithm design.
+
+To understand merge sort, it is worthwhile to consider carefully the dynamics of the method calls. The idea behind this is recursively call the sort method to sort smaller and smaller subsets of the array then once the two are successfully sorted for their respective halves, there is one major sort that will sort the two halves together. The benefit of this is that when you call merge the more computationally difficult two halves, then those halves are already sorted so the process becomes a lot easier for a computer to handle. Top-down merge sort uses between ~1/2Nlog(N) and Nlog(N) compares to sort any array of length N.
+
+We can improve most recursive algorithms by handling small cases differently, because the recursion guarantees that the method will be used often for small cases, so improvements in handling them lead to improvements in the whole algorithm. In the case of sorting, we know that insertion sort or selection sort is simple and therefore likely to be faster than merge sort for tiny subarrays. Another improvemnet we coudl make is to add a test to call the skip to `merge()` if a[mid] is less than or equal to a[mid+1. With this change we still do the recursive calls but the running time for sorted arrays in linear.
+
+
 # Helpful hints for the midterm
 
 Well, in Java an int is a primitive while an Integer is an Object. Meaning, if you made a new Integer:
@@ -1561,7 +1650,29 @@ You cannot call any methods on it, because it is simply a primitive. So:
 
 `String s = i.toString();//will not work!!!`
 
+---
 markdown-pdf AlgorithmNotes.md
+
+---
+
+## **Various Big-O Notations**
+
+| Algorithm      | Time Complexity |                 |                | Space Complexity |
+|----------------|-----------------|-----------------|----------------|------------------|
+|                | Best            | Average         | Worst          | Worst            |
+| Quicksort      | Ω(n log(n))     | Θ(n log(n))     | O(n^2)         | O(log(n))        |
+| Mergesort      | Ω(n log(n))     | Θ(n log(n))     | O(n log(n))    | O(n)             |
+| Timsort        | Ω(n)            | Θ(n log(n))     | O(n log(n))    | O(n)             |
+| Heapsort       | Ω(n log(n))     | Θ(n log(n))     | O(n log(n))    | O(1)             |
+| Bubble Sort    | Ω(n)            | Θ(n^2)          | O(n^2)         | O(1)             |
+| Insertion Sort | Ω(n)            | Θ(n^2)          | O(n^2)         | O(1)             |
+| Selection Sort | Ω(n^2)          | Θ(n^2)          | O(n^2)         | O(1)             |
+| Tree Sort      | Ω(n log(n))     | Θ(n log(n))     | O(n^2)         | O(n)             |
+| Shell Sort     | Ω(n log(n))     | Θ(n(log(n))^2)  | O(n(log(n))^2) | O(1)             |
+| Bucket Sort    | Ω(n+k)          | Θ(n+k)          | O(n^2)         | O(n)             |
+| Radix Sort     | Ω(nk)           | Θ(nk)           | O(nk)          | O(n+k)           |
+| Counting Sort  | Ω(n+k)          | Θ(n+k)          | O(n+k)         | O(k)             |
+| Cubesort       | Ω(n)            | Θ(n log(n))     | O(n log(n))    | O(n)             |
 
 
 ---
