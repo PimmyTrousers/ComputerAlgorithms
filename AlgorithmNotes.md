@@ -1544,7 +1544,7 @@ The algorithms described in this chapter are based on combining two ordered arra
 
 **Abstract in place merge.**
 
-The straightforward approach to implementing merging is to design a method that merges two disjoint ordered arrays of comparable objects into a third array. This strategy is easy to implement: create an output array of the requisite size and then choose successively the smallest remaining item from the two input arrays to e the next item added to the output array. 
+The straightforward approach to implementing merging is to design a method that merges two disjoint ordered arrays of comparable objects into a third array. This strategy is easy to implement: create an output array of the requisite size and then choose successively the smallest remaining item from the two input arrays to e the next item added to the output array.
 
 # Helpful hints for the midterm
 
@@ -1560,6 +1560,8 @@ Whereas with an int:
 You cannot call any methods on it, because it is simply a primitive. So:
 
 `String s = i.toString();//will not work!!!`
+
+markdown-pdf AlgorithmNotes.md
 
 
 ---
