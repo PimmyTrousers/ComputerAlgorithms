@@ -1721,3 +1721,61 @@ markdown-pdf AlgorithmNotes.md
 
 Static methods are called `functions` in many programming languages. The modifier static distinguishes these methods from instance methods which must be called on a object so a.sort();
 ---
+
+## **Abstract Data Types**
+
+To specify the behavior of an abstract data type, we use an API, which is a list of constructors and instance methods, with an informal description of the effect of each, as in the API for counter
+
+```
+public class counter
+
+				Counter(String id) // create a counter named id
+void 		increment() 			 // increment the counter by one
+int 		tally() 					 // number of increments since creation
+String	toString()				 // string representation
+```
+
+### **Inhereted methods**
+
+All objects in java must inherit a toString() method. If we use the general toString that it inherits we would get a string with the memory representation so generally the user would override the method and implement their own. Other examples of methods that are generally overided are equals(), compareTo(), hashCode().
+
+### **Objects**
+
+Naturally, you can declare that a variables heads is to be associated with data of type Counter with the code `Counter heads;`. An object is an entitty that can take on a data-type value. Objects are characterized by three essential properties: state, identity, behavior. The state of an object is a value from a data type. The identity od an object distinguishes one object from another. It is useful to think of an objects identity as a place where it is stored in memory. The behavior of an object is the effect of data-type operations.
+
+### **Creating Objects**
+
+Each data-type value is stored in an object. To create an individual object, we invoke a constructor by using the keyword new, followed by the class name, followed by () (or a list or args). A constructor has no return type because it always returns a reference to an object of its data type. Each time that a client uses new(), the system
+	1. Allocates memory space for the object
+	2. invokes the constructor to initialize its value
+	3. REturns a reference to the object
+
+In client code we typically create objects in an initializing declaration that associates a variable with an object, as we often do with variables of primitive types. Unlike primitive types, variables are associated with references to objects, not the data-type values themselves.
+
+---
+
+## **Equality of Objects**
+
+IF we test objects with (a == b) where a and b are reference variables of the same type we are testing whether they have the same identity: whether the references are equal. An example of using the .equals instance method, if x and y are string values, then x.equals(y) is true if and only if x and y have the same length and are identical in each character position. Java's convention is that equals() must be an equivalence relation. It must be
+	1. Refelxive, x.equals(y) is true
+	2. Symmetric, x.equals(y) is true and y.equals(x) is true
+	3. Transitive, if x.equals(y) and y.equals(z) are true then x.equals(z) is true
+
+```
+public boolean equals(Object x){
+	if (this == x) return true;
+	if (x == null) return false;
+	if (this.getClass() != this.getClass()) return false;
+	Date that = (Date) x;
+	if (this.day != that.day) return false;
+	if (this.month != that.month) return false;
+	if (this.year != this.year) return false;
+	return true;
+}
+```
+
+---
+
+## **Immutability**
+
+An immutable data type such as date has a property that the value of an object never changes once constructed. By contrast a mutable data type such as a Counter or accumulator manipulates object values that are intended to change. Java supports this feature with the final modifier. When you declare a variable to be final, you are promising to assign it a value only once.
