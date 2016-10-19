@@ -1436,7 +1436,6 @@ Steps for deciding where to make the partition of the array
 			- quick
 			- h sort (shell sort)
 
-
 # Reading Notes
 
 ## Chapter 2.1
@@ -1779,3 +1778,188 @@ public boolean equals(Object x){
 ## **Immutability**
 
 An immutable data type such as date has a property that the value of an object never changes once constructed. By contrast a mutable data type such as a Counter or accumulator manipulates object values that are intended to change. Java supports this feature with the final modifier. When you declare a variable to be final, you are promising to assign it a value only once.
+
+---
+
+## **Generics**
+
+Java Generic methods and generic classes enable programmers to specify, with a single method declaration, a set of related methods, or with a single class declaration, a set of related types, respectively.
+
+Generics also provide compile-time type safety that allows programmers to catch invalid types at compile time.You can write a single generic method declaration that can be called with arguments of different types. Based on the types of the arguments passed to the generic method, the compiler handles each method call appropriately. Following are the rules to define Generic Methods −
+
+	1. All generic method declarations have a type parameter section delimited by angle brackets (< and >) that precedes the method's return type 	( < E > in the next example).
+
+	2. Each type parameter section contains one or more type parameters separated by commas. A type parameter, also known as a type variable, is an identifier that specifies a generic type name.
+
+	3. The type parameters can be used to declare the return type and act as placeholders for the types of the arguments passed to the generic method, which are known as actual type arguments.
+
+	4. A generic method's body is declared like that of any other method. Note that type parameters can represent only reference types, not primitive types (like int, double and char).
+
+```
+public class GenericMethodTest {
+   // generic method printArray
+   public static < E > void printArray( E[] inputArray ) {
+      // Display array elements
+      for(E element : inputArray) {
+         System.out.printf("%s ", element);
+      }
+      System.out.println();
+   }
+
+   public static void main(String args[]) {
+      // Create arrays of Integer, Double and Character
+      Integer[] intArray = { 1, 2, 3, 4, 5 };
+      Double[] doubleArray = { 1.1, 2.2, 3.3, 4.4 };
+      Character[] charArray = { 'H', 'E', 'L', 'L', 'O' };
+
+      System.out.println("Array integerArray contains:");
+      printArray(intArray);   // pass an Integer array
+
+      System.out.println("\nArray doubleArray contains:");
+      printArray(doubleArray);   // pass a Double array
+
+      System.out.println("\nArray characterArray contains:");
+      printArray(charArray);   // pass a Character array
+   }
+}
+```
+
+---
+
+## **Type Erasure**
+
+Type erasure applies to the use of generics. There's definitely metadata in the class file to say whether or not a method/type is generic, and what the constraints are etc. But when generics are used, they're converted into compile-time checks and execution-time casts. So this code:
+
+List<String> list = new ArrayList<String>();
+list.add("Hi");
+String x = list.get(0);
+is compiled into
+
+List list = new ArrayList();
+list.add("Hi");
+String x = (String) list.get(0);
+
+---
+
+## **Intefaces**
+
+### Comparable Intefaces
+
+```
+		public class Animal implements Comparable<Animal>{
+    public String name;
+    public int year_discovered;
+    public String population;
+
+    public Animal(String name, int year_discovered, String population){
+        this.name = name;
+        this.year_discovered = year_discovered;
+        this.population = population;
+    }
+
+    public String toString(){
+     String s = "Animal name: "+ name+"\nYear Discovered: "+year_discovered+"\nPopulation: "+population;
+     return s;
+    }
+
+    @Override
+    public int compareTo( final Animal o) {
+        return Integer.compare(this.year_discovered, o.year_discovered);
+    }
+}
+```
+
+### Iterator Interfaces
+
+```
+private class ListIterator implements Iterator<V> {
+    private Node next;
+    private boolean alreadyDeleted = false;
+
+    ListIterator(Node node){
+        this.next = node;
+    }
+
+    @Override
+    public boolean hasNext() {
+        // because next is the current element. We need to iterate over all the elements
+        // from the collection.
+        return next != null;
+    }
+
+    @Override
+    public V next() {
+        if (next == null) {
+           throw new NoSuchElementException();
+        }
+
+        Node current = next;
+
+        this.next = current.getNext();
+        this.alreadyDeleted = false; // it's better to try to elimate this state variable. You can try to do in another way, if yours removeElement returns something
+
+        return current;
+    }
+
+    @Override
+    public void remove() {
+        if (alreadyDeleted || next == null) {
+           throw new IllegalStateException();
+        }
+        removeElement(next.getReprKey());
+        this.alreadyRemoved = true;
+    }
+
+}
+```
+
+### Iteratable Interfaces
+
+```
+public class MyCollection<E> implements Iterable<E>{
+
+    public Iterator<E> iterator() {
+        return new MyIterator<E>();
+    }
+}
+```
+
+---
+
+## **Bags, Queues, stacks**
+
+Generics. An essential characteristic of collection ADTs is that we should be able to use them for any type of data. A specific Java mechanism known as generics enables this capability. The notation <Item> after the class name in each of our APIs defines the name Item as a type parameter, a symbolic placeholder for some concrete type to be used by the client. You can read Stack<Item> as "stack of items."
+
+Autoboxing. Type parameters have to be instantiated as reference types, so Java automatically converts between a primitive type and its corresponding wrapper type in assignments, method arguments, and arithmetic/logic expressions. This conversion enables us to use generics with primitive types, as in the following code:
+
+```
+Stack<Integer> stack = new Stack<Integer>();
+stack.push(17);        // auto-boxing (int -> Integer)
+int i = stack.pop();   // auto-unboxing (Integer -> int)
+```
+
+Bags. A bag is a collection where removing items is not supported—its purpose is to provide clients with the ability to collect items and then to iterate through the collected items. Stats.java is a bag client that reads a sequence of real numbers from standard input and prints out their mean and standard deviation.
+
+```
+public class Bag<Item> implements Iterable<Item>
+		 		Bag()							    // create an empty Bag
+void 		add(Item item)				// add an item
+boolean isEmpty()							// Is the bag empty?
+int 		size() 								// number of items in the bag
+
+public class Queue<Item> implements Iterable<Item>
+				Queue()								// create an empty Queue
+void 		enqueue(Item item)		// add an item
+Item		dequeue()             // remove the least recently added item
+boolean isEmpty() 						// is the queue emtpy?
+int 		size() 								// number of items in the queue
+
+public class Stack<Item> implements Iterable<Item>
+				Stack()								// create  a empty Stack
+void 		push(Item item) 			// add an item
+Item		pop()									// remoce the most recently added item
+boolean isEmpty()							// is the stack empty?
+int 		size() 								// number o items in the stack
+```
+
+---
