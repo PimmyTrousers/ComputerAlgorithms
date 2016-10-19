@@ -1634,6 +1634,46 @@ To understand merge sort, it is worthwhile to consider carefully the dynamics of
 
 We can improve most recursive algorithms by handling small cases differently, because the recursion guarantees that the method will be used often for small cases, so improvements in handling them lead to improvements in the whole algorithm. In the case of sorting, we know that insertion sort or selection sort is simple and therefore likely to be faster than merge sort for tiny subarrays. Another improvemnet we coudl make is to add a test to call the skip to `merge()` if a[mid] is less than or equal to a[mid+1. With this change we still do the recursive calls but the running time for sorted arrays in linear.
 
+# **Chapter 2.1 Quick sort**
+
+One of the must popular sorting algorithms out there is known as quick sort. Quick sort is popular among the community because it is not difficult to implement, works well for a variety of different kinds of input data, and is substantially faster than any other sorting method in typical applications. The quick sort algorithm's desirable features are that it is in-place and that it requires time proportional to N*log(N) on the average to sort an array of length N. None of those algorithms that we have covered so far share these two properties. Also quick sort has a shorter inner loop than most other sorting algorithms, which means that it is faster in practice and theory.
+
+One of the few downsides of quick sort is that it is fragile in the sense that some care is involved in the implementation to be sure to avoid bad performance. Numerous mistakes in taking care of how to handle quick sort can quickly lead to it being quadratic.
+
+Quick sort is a divide and conquer method for sorting. It works by partitioning an array into sub-arrays, then sorting the subarrays independently. Quick sort is complementary to merge sort, expect for quick sort we arrange it so that when we partition the two halves and put them back together the entire array is sorted. Below is example code for quick sort.
+
+```
+public class Quick{
+	public static void sort(comparable[] a){
+		StdRandom.shuffle(a);
+		sort(a, 0, a.length -1);
+	}
+
+	private static void sort(Comparable[] a, int lo, int hi){
+		if (hi <= lo) return;
+		int j = partition(a, lo, hi);
+		sort(a, lo, j-1);
+		sort(a, j+1, hi);
+	}
+}
+```
+
+In the first instance we do the two recursive calls before working on the whole array; in the second instance, we do the two recursive calls after working on the whole array. For quicksort the position of the partition depends on the contents of the array.
+
+The crux of the method is the partitioning process, which rearranges the array to make the following three conditions hold:
+	1. The entry a[j] is in its final place in the array, for some j
+	2. No entry in a[lo] through a[j-1] is greater than a[j]
+	3. no entry in a[j+1] through a[hi] is less than a[j]
+We achieve a complete sort by partitioning, the recursively applying this method. Because the partitioning process always fixes one item into its position, it is relatively easy to produce a proof by induction.
+
+## **Partitioning in place**
+If we use an extra array, partitioning is easy to implement, but not so much easier that it is worth the extra cost of copying the partitioned version back into the original.
+
+## **Staying in bounds**
+If the smallest item or the largest item in the array is the partitioning item, we have to take care that the pointers do not run off the left or right ends of the array. Our Partition() implementation has explicit tests to guard against this circumstance. the test (j == lo) is redundant, since the partitioning item is at a[lo] and not less that itself.
+
+## **Preserving randomness**
+The random shuffle puts the array in a random order. Since it treats all items i the subarrays uniformly. This fact is crucial to the predictability of the algorithm's running time. An alternate way to preserve randomness is to choose a random item for partitioning within partition.
 
 # Helpful hints for the midterm
 
@@ -1675,4 +1715,9 @@ markdown-pdf AlgorithmNotes.md
 | Cubesort       | Ω(n)            | Θ(n log(n))     | O(n log(n))    | O(n)             |
 
 
+---
+
+## **Static Method**
+
+Static methods are called `functions` in many programming languages. The modifier static distinguishes these methods from instance methods which must be called on a object so a.sort();
 ---
